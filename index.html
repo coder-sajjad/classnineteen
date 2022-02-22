@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.1.0/css/all.css">
+    
+    <!-- ALL CSS FIiles -->
+    <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./assets/css/responsive.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    
+    <title>Developer Sajjad</title>
+
+</head>
+<body>
+
+    <!--  -->
+    <section class="devs-table">
+        <a class="btn btn-primary mb-2 shadow-none" href="#modal_add" data-bs-toggle="modal">Add Studnet</a>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>E-mail</th>
+                    <th>Phone Number</th>
+                    <th>Skill</th>
+                    <th>Age</th>
+                    <th>Location</th>
+                    <th>Photo</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="load_devs_data">
+                
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Modal Add -->
+    <div class="modal fade" id="modal_add">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Add New Devs</h3>
+                </div>
+                <div class="modal-body">
+                    <form action="" id="devsAddForm">
+                        <div class="form-group mb-3">
+                            <input id="name" name="name" type="text" class="form-control shadow-none" placeholder="Name">
+                        </div>
+                        <div class="form-group mb-3">
+                            <input id="email" name="email" type="email" class="form-control shadow-none" placeholder="E-mail">
+                        </div>
+                        <div class="form-group mb-3">
+                            <input id="phone" name="phone" type="text" class="form-control shadow-none" placeholder="Number">
+                        </div>
+                        <div class="form-group mb-3">
+                            <select class="form-control" name="" id="all_skills">
+                                <option value="">-Select your skill-</option>
+                                <!-- <div class="all-skills">
+                                    
+                                </div> -->
+                            </select>
+                        </div>
+                        <div class="form-group mb-3">
+                            <input id="age" name="age" type="text" class="form-control shadow-none" placeholder="Age">
+                        </div>
+                        <div class="form-group mb-3">
+                            <input id="location" name="location" type="text" class="form-control shadow-none" placeholder="Location">
+                        </div>
+                        <div class="form-group mb-3">
+                            <input id="image" name="image" type="text" class="form-control shadow-none" placeholder="Image">
+                        </div>
+                        <div class="form-group mb-2">
+                            <input type="submit" data-bs-dismiss="modal" class="btn btn-primary w-100 shadow-none" value="Add Developer">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal View -->
+    <div class="modal fade" id="modal_view">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header"></div>
+                <div class="modal-body"></div>
+                <div class="modal-footer"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Edit -->
+    <div class="modal fade" id="edit_modal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header"></div>
+                <div class="modal-body">
+                    <h4>Edit Developers Data</h4>
+                    <form action="" id="editDevsForm">
+                        <div class="form-group mb-3 text-center">
+                            <img style="width: 200px; height: 200px; object-fit: cover; margin: 20px 0;" src="" alt="" class="" id="editPreview"><br>
+                            <label class="form-label" for="">Your live image link</label>
+                            <input id="editImage" name="image" type="text" class="form-control shadow-none" placeholder="Image">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="form-label" for="">Name</label>
+                            <input id="editName" name="name" type="text" class="form-control shadow-none" placeholder="Name">
+                        </div>
+                        <div class="form-group mb-3">
+                            <input id="editId" type="hidden" class="form-control shadow-none" placeholder="Edit ID">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="form-label" for="">E-mail</label>
+                            <input id="editEmail" name="email" type="email" class="form-control shadow-none" placeholder="E-mail">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="form-label" for="">Phone Number</label>
+                            <input id="editPhone" name="phone" type="text" class="form-control shadow-none" placeholder="Number">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="form-label" for="">Skill</label>
+                            <input class="form-control" name="" id="edit_all_skills">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="form-label" for="">Age</label>
+                            <input id="editAge" name="age" type="text" class="form-control shadow-none" placeholder="Age">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="form-label" for="">location</label>
+                            <input id="editLocation" name="location" type="text" class="form-control shadow-none" placeholder="Location">
+                        </div>
+                        <div class="form-group mb-2">
+                            <input type="submit" data-bs-dismiss="modal" class="btn btn-primary w-100 shadow-none" value="Save Change">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Delete -->
+    <div class="modal fade" id="delete_modal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header"></div>
+                <div class="modal-body"></div>
+                <div class="modal-footer"></div>
+            </div>
+        </div>
+    </div>
+    
+    
+    
+
+
+    <!-- All JS Files -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="./assets/js/jquery-3.4.1.min.js"></script>
+    <script src="./assets/js/bootstrap.min.js"></script>
+    <script src="./assets/js/popper.min.js"></script>
+    <script src="./assets/js/custom/function.js"></script>
+    <script src="./assets/js/custom/app.js"></script>
+
+</body>
+</html>
