@@ -1,6 +1,31 @@
 
+body{
+    background: #c9c9c9;
+}
 .devs-table{
-    width: 1000px;
-    margin: 50px auto 0;
+    /* width: 1000px;
+    margin: 50px auto 0; */
+    background: #dad4d4;
     
+}
+.div-01 {
+    width: 150px;
+}
+.div-01 h5 {
+    padding: 7px 0;
+    font-size: 20px;
+    display: inline-block;
+    text-align: right;
+    width: 140px;
+    font-weight: 600;
+}
+.div-02 {
+    width: 250px;
+}
+.div-02 span {
+    font-weight: 400;
+    color: #222222;
+    font-size: 20px;
+    display: inline-block;
+    padding: 7px 0;
 }

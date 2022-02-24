@@ -39,21 +39,20 @@ const loadDevelopers = () => {
                     <td>${ devs.name }</td>
                     <td>${ devs.email }</td>
                     <td>${ devs.phone }</td>
-                    <td>${ devs.all_skillsId }</td>
                     <td>${ devs.age }</td>
                     <td>${ devs.location }</td>
                     <td><img style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%;" src="${ devs.image }" alt=""></td>
                     <td>
-                        <a data-bs-toggle="modal" class="btn btn-sm btn-primary" href="#modal_view"><i class="fa fa-eye"></i></a>
-                        <a data-bs-toggle="modal" class="btn btn-sm btn-info" onclick="editDevelopers(${ devs.id })" href="#edit_modal"><i class="fa fa-edit"></i></a>
-                        <a data-bs-toggle="modal" class="btn btn-sm btn-danger" href="#modal_delete"><i class="fa fa-trash"></i></a>
+                        <a data-bs-toggle="modal" class="btn btn-sm shadow-none btn-secondary" onclick="viewDevelopers(${devs.id})" href="#modal_view"><i class="fa fa-eye"></i></a>
+                        <a data-bs-toggle="modal" class="btn btn-sm shadow-none btn-info" onclick="editDevelopers(${ devs.id })" href="#edit_modal"><i class="fa fa-edit"></i></a>
+                        <a data-bs-toggle="modal" class="btn btn-sm shadow-none btn-danger" onclick="deleteDevelopers(${devs.id})" href="#delete_modal"><i class="fa fa-trash"></i></a>
                     </td>
                 </tr>
             `;
         });
 
         loadDevsData.innerHTML = devs_data;
-
+        
     });
 
 };
@@ -118,14 +117,14 @@ function editDevelopers(id){
     let editId = document.querySelector('#editId');
 
     axios.get(`http://localhost:5050/developers/${id}`).then(res => {
-        editName.value = res.data.name ;
-        editEmail.value = res.data.email ;
-        editPhone.value = res.data.phone ;
+        editName.value = res.data.name;
+        editEmail.value = res.data.email;
+        editPhone.value = res.data.phone;
         edit_all_skills.value = res.data.all_skillsId;
-        editAge.value = res.data.age ;
-        editLocation.value = res.data.location ;
-        editImage.value = res.data.image ;
-        editId.value = id ;
+        editAge.value = res.data.age;
+        editLocation.value = res.data.location;
+        editImage.value = res.data.image;
+        editId.value = id;
         preview.setAttribute('src', res.data.image);
     });
 };
@@ -133,32 +132,31 @@ function editDevelopers(id){
 /**
  * Devs Edit Form
  */
- editDevsForm.addEventListener('submit', function(e){
+editDevsForm.addEventListener('submit', function(e){
     e.preventDefault();
 
     let editName = this.querySelector('#editName');
     let editEmail = this.querySelector('#editEmail');
     let editPhone = this.querySelector('#editPhone');
     let edit_all_skills = this.querySelector('#edit_all_skills');
-    let editAge = this.querySelector('#age');
+    let editAge = this.querySelector('#editAge');
     let editLocation = this.querySelector('#editLocation');
     let editImage = this.querySelector('#editImage');
     
-
-    axios.patch(`http://localhost:5050/developers/${editId.value}`, {
+    axios.patch(`http://localhost:5050/developers/${editId.value}`,{
             id          : "",
-            name        : name.value,
-            email       : email.value,
-            phone       : phone.value,
-            all_skillsId: all_skills.value,
-            age         : age.value,
-            location    : location.value,
-            image       : image.value
+            name        : editName.value,
+            email       : editEmail.value,
+            phone       : editPhone.value,
+            all_skillsId: edit_all_skills.value,
+            age         : editAge.value,
+            location    : editLocation.value,
+            image       : editImage.value
         }).then(res => {
             
-            name.value = '';
-            email.value = '';
-            phone.value = '';
+            editName.value = '';
+            editEmail.value = '';
+            editPhone.value = '';
             all_skills.value = '';
             age.value = '';
             location.value = '';
@@ -167,5 +165,66 @@ function editDevelopers(id){
             loadDevelopers();
         });
 
+});
 
- });
+
+/**
+ *  Delete Developers Data
+ */
+const deleteData = document.getElementById('deleteData');
+function deleteDevelopers(id){
+    deleteData.setAttribute( 'delid', id );
+};
+
+// Delete Data form API
+deleteData.addEventListener('click', function(){
+    let del_id = this.getAttribute('delid');
+    axios.delete(`http://localhost:5050/developers/${del_id}`).then(res => {
+        loadDevelopers();
+    });
+
+});
+
+
+/**
+ *  View Developers Info
+ */
+function viewDevelopers(id){
+    const modal_view = document.getElementById('modal_view');
+    axios.get(`http://localhost:5050/developers/${ id }`).then(data => {
+
+        axios.get(`http://localhost:5050/skills/${ id }`).then( res => {
+
+            modal_view.querySelector('.modal-body').innerHTML = `
+            <div class="card clearfix">
+                <div class="card-header bg-secondary text-white">
+                    <h2>Your Information</h2>
+                </div>
+                <img class="card-img"  src="${ data.data.image }" alt="">
+                <div class="card-body">
+                    <div class="div-01 float-start">
+                        <h5>Name:</h5>
+                        <h5>Skill:</h5>
+                        <h5>Email:</h5>
+                        <h5>Number:</h5>
+                        <h5>Age:</h5>
+                        <h5>Location:</h5>
+                    </div>
+                    <div class="div-02 float-end">
+                        <span>${ data.data.name }</span><br>
+                        <span>${ res.data.skill}</span><br>
+                        <span>${ data.data.email }</span><br>
+                        <span>${ data.data.phone }</span><br>
+                        <span>${ data.data.age }</span><br>
+                        <span>${ data.data.location }</span><br>
+                    </div>
+                </div>
+                <div class="card-footer bg-secondary text-white text-center">Thank you</div>
+            </div>
+        `;
+        });
+        
+    });
+
+};
+
